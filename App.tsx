@@ -1037,8 +1037,9 @@ export default function App() {
                   <div className="f4-page">
                     <h2 className="text-center text-xl font-bold mb-10 underline uppercase tracking-tight">RENCANA PEMBELAJARAN MENDALAM (RPM)</h2>
                     
+                    {/* A. IDENTITAS MODUL */}
                     <table className="table-spreadsheet">
-                      <thead><tr><th colSpan={2} className="table-header-pink">1. IDENTITAS PEMBELAJARAN</th></tr></thead>
+                      <thead><tr><th colSpan={2} className="table-header-pink">A. IDENTITAS MODUL</th></tr></thead>
                       <tbody>
                         <tr><td className="col-key">Satuan Pendidikan</td><td>{state.formData.schoolName}</td></tr>
                         <tr><td className="col-key">Mata Pelajaran</td><td>{state.formData.subject}</td></tr>
@@ -1055,77 +1056,32 @@ export default function App() {
                       </tbody>
                     </table>
 
+                    <div className="h-6"></div>
+
+                    {/* B. IDENTIFIKASI MURID */}
                     <table className="table-spreadsheet">
-                      <thead><tr><th colSpan={2} className="table-header-pink">2. DESAIN PEMBELAJARAN</th></tr></thead>
+                      <thead><tr><th colSpan={2} className="table-header-pink">B. IDENTIFIKASI MURID</th></tr></thead>
                       <tbody>
-                        <tr><td className="col-key">CP</td><td className="text-justify">{state.formData.cp}</td></tr>
-                        <tr><td className="col-key">TP</td><td className="whitespace-pre-line">{state.formData.tp}</td></tr>
-                        <tr><td className="col-key">Praktik Pedagogis</td><td className="font-bold">{state.generatedContent.pedagogy}</td></tr>
-                        <tr><td className="col-key">Profil Lulusan</td><td className="font-bold">{state.generatedContent.dimensions}</td></tr>
+                        <tr>
+                          <td className="col-key">Pengetahuan Awal</td>
+                          <td className="p-4 text-justify leading-relaxed whitespace-pre-line">{state.generatedContent.studentIdentification.priorKnowledge}</td>
+                        </tr>
+                        <tr>
+                          <td className="col-key">Minat Belajar</td>
+                          <td className="p-4 text-justify leading-relaxed whitespace-pre-line">{state.generatedContent.studentIdentification.interests}</td>
+                        </tr>
+                        <tr>
+                          <td className="col-key">Kebutuhan Belajar</td>
+                          <td className="p-4 text-justify leading-relaxed whitespace-pre-line">{state.generatedContent.studentIdentification.learningNeeds}</td>
+                        </tr>
                       </tbody>
                     </table>
 
-                    <div className="bg-[#fce4ec] border-[1.5pt] border-black text-center font-bold uppercase p-3 mb-6 mt-8">3. PENGALAMAN BELAJAR (PER PERTEMUAN)</div>
-                    
-                    {state.generatedContent.meetings.map((meeting, idx) => {
-                      const theme = MEETING_THEMES[idx % MEETING_THEMES.length];
-                      return (
-                        <div key={idx} className="mb-14 border-2 border-indigo-900/10 rounded-3xl p-6 bg-white shadow-sm overflow-hidden" style={{ borderColor: theme.accent + '20' }}>
-                          <div className="flex items-center justify-between mb-6 border-b pb-4">
-                            <div className="meeting-badge !m-0" style={{ backgroundColor: theme.accent }}>PERTEMUAN KE-{idx + 1}</div>
-                            <div className="text-[10px] font-black uppercase tracking-widest" style={{ color: theme.accent }}>Deep Learning Session</div>
-                          </div>
-                          
-                          <table className="table-spreadsheet !m-0" style={{ borderColor: theme.accent }}>
-                            <tbody>
-                              <tr style={{ backgroundColor: theme.header }}>
-                                <td colSpan={2} className="text-center font-bold uppercase py-4" style={{ color: theme.text }}>
-                                  A. KEGIATAN AWAL ({meeting.opening.duration})
-                                </td>
-                              </tr>
-                              <tr>
-                                <td colSpan={2} className="p-8 leading-relaxed whitespace-pre-line text-justify">
-                                  {meeting.opening.steps}
-                                </td>
-                              </tr>
+                    <div className="h-6"></div>
 
-                              <tr style={{ backgroundColor: theme.header }}>
-                                <td colSpan={2} className="text-center font-bold uppercase py-4 border-t-2" style={{ borderColor: theme.accent, color: theme.text }}>
-                                  B. KEGIATAN INTI ({meeting.understand.duration} + {meeting.apply.duration} + {meeting.reflect.duration})
-                                </td>
-                              </tr>
-                              <tr>
-                                <td className="col-key italic" style={{ width: '150px', backgroundColor: theme.header + '80', color: theme.text }}>1. Understand</td>
-                                <td className="p-6 whitespace-pre-line text-justify leading-relaxed">{meeting.understand.steps}</td>
-                              </tr>
-                              <tr>
-                                <td className="col-key italic" style={{ backgroundColor: theme.header + '80', color: theme.text }}>2. Apply</td>
-                                <td className="p-6 whitespace-pre-line text-justify leading-relaxed">{meeting.apply.steps}</td>
-                              </tr>
-                              <tr>
-                                <td className="col-key italic" style={{ backgroundColor: theme.header + '80', color: theme.text }}>3. Reflect</td>
-                                <td className="p-6 whitespace-pre-line text-justify leading-relaxed">{meeting.reflect.steps}</td>
-                              </tr>
-
-                              <tr style={{ backgroundColor: theme.header }}>
-                                <td colSpan={2} className="text-center font-bold uppercase py-4 border-t-2" style={{ borderColor: theme.accent, color: theme.text }}>
-                                  C. KEGIATAN AKHIR ({meeting.closing.duration})
-                                </td>
-                              </tr>
-                              <tr>
-                                <td colSpan={2} className="p-8 leading-relaxed whitespace-pre-line text-justify">
-                                  {meeting.closing.steps}
-                                </td>
-                              </tr>
-                            </tbody>
-                          </table>
-                        </div>
-                      );
-                    })}
-
-                    <div className="page-break"></div>
-                    <div className="bg-[#fce4ec] border-[1.5pt] border-black text-center font-bold uppercase p-3 mb-6 mt-12">4. RINGKASAN MATERI POKOK</div>
+                    {/* C. MATERI PELAJARAN */}
                     <table className="table-spreadsheet">
+                      <thead><tr><th className="table-header-pink">C. MATERI PELAJARAN</th></tr></thead>
                       <tbody>
                         {state.generatedImageUrl && (
                           <tr>
@@ -1134,7 +1090,7 @@ export default function App() {
                                  src={state.generatedImageUrl} 
                                  alt="Visual Materi" 
                                  style={{ 
-                                   maxHeight: '300px', 
+                                   maxHeight: '250px', 
                                    maxWidth: '100%', 
                                    objectFit: 'contain', 
                                    borderRadius: '8px',
@@ -1146,20 +1102,125 @@ export default function App() {
                           </tr>
                         )}
                         <tr>
-                          <td className="p-8 text-justify leading-relaxed whitespace-pre-line align-top">
+                          <td className="p-6 text-justify leading-relaxed whitespace-pre-line">
                             {renderFormattedText(state.generatedContent.summary)}
                           </td>
                         </tr>
                       </tbody>
                     </table>
 
-                    <div className="bg-[#fce4ec] border-[1.5pt] border-black text-center font-bold uppercase p-3 mb-6 mt-10">5. ASESMEN PEMBELAJARAN</div>
+                    <div className="h-6"></div>
+
+                    {/* D. DIMENSI PROFIL LULUSAN */}
                     <table className="table-spreadsheet">
                       <thead>
+                        <tr className="table-header-pink">
+                          <th colSpan={2}>D. DIMENSI PROFIL LULUSAN</th>
+                        </tr>
+                        <tr className="bg-slate-100 font-bold">
+                          <th className="text-center" style={{width: '30%'}}>Dimensi</th>
+                          <th className="text-center">Elemen yang Dikembangkan</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {state.generatedContent.dimensionDetails.map((detail, idx) => (
+                          <tr key={idx}>
+                            <td className="font-bold text-center bg-slate-50">{detail.dimension}</td>
+                            <td className="p-4 text-justify leading-relaxed">{detail.elements}</td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+
+                    <div className="h-6"></div>
+
+                    {/* E. DESAIN PEMBELAJARAN */}
+                    <table className="table-spreadsheet">
+                      <thead><tr><th colSpan={2} className="table-header-pink">E. DESAIN PEMBELAJARAN</th></tr></thead>
+                      <tbody>
+                        <tr><td className="col-key">Capaian Pembelajaran</td><td className="text-justify">{state.formData.cp}</td></tr>
+                        <tr><td className="col-key">Tujuan Pembelajaran</td><td className="whitespace-pre-line">{state.formData.tp}</td></tr>
+                        <tr><td className="col-key">Praktik Pedagogis</td><td className="font-bold">{state.generatedContent.pedagogy}</td></tr>
+                        <tr><td className="col-key">Lintas Disiplin Ilmu</td><td className="p-4 text-justify">{state.generatedContent.interdisciplinary}</td></tr>
+                        <tr><td className="col-key">Pemanfaatan Digital</td><td className="p-4 text-justify">{state.generatedContent.digitalTools}</td></tr>
+                        <tr><td className="col-key">Kemitraan</td><td>{state.generatedContent.partnership}</td></tr>
+                        <tr><td className="col-key">Lingkungan Belajar</td><td>{state.generatedContent.environment}</td></tr>
+                      </tbody>
+                    </table>
+
+                    <div className="h-6"></div>
+
+                    {/* F. PENGALAMAN BELAJAR */}
+                    <div className="bg-[#fce4ec] border-[1.5pt] border-black text-center font-bold uppercase p-3 mb-6">F. PENGALAMAN BELAJAR (RINCIAN PER PERTEMUAN)</div>
+                    
+                    {state.generatedContent.meetings.map((meeting, idx) => {
+                      const theme = MEETING_THEMES[idx % MEETING_THEMES.length];
+                      return (
+                        <div key={idx} className="mb-10 border-2 border-indigo-900/10 rounded-3xl p-6 bg-white shadow-sm overflow-hidden" style={{ borderColor: theme.accent + '20' }}>
+                          <div className="flex items-center justify-between mb-6 border-b pb-4">
+                            <div className="meeting-badge !m-0" style={{ backgroundColor: theme.accent }}>PERTEMUAN KE-{idx + 1}</div>
+                            <div className="text-[10px] font-black uppercase tracking-widest" style={{ color: theme.accent }}>Deep Learning Session</div>
+                          </div>
+                          
+                          <table className="table-spreadsheet !m-0" style={{ borderColor: theme.accent }}>
+                            <tbody>
+                              <tr style={{ backgroundColor: theme.header }}>
+                                <td colSpan={2} className="text-center font-bold uppercase py-4" style={{ color: theme.text }}>
+                                  1. KEGIATAN AWAL ({meeting.opening.duration})
+                                </td>
+                              </tr>
+                              <tr>
+                                <td colSpan={2} className="p-6 leading-relaxed whitespace-pre-line text-justify">
+                                  {meeting.opening.steps}
+                                </td>
+                              </tr>
+
+                              <tr style={{ backgroundColor: theme.header }}>
+                                <td colSpan={2} className="text-center font-bold uppercase py-4 border-t-2" style={{ borderColor: theme.accent, color: theme.text }}>
+                                  2. KEGIATAN INTI ({meeting.understand.duration} + {meeting.apply.duration} + {meeting.reflect.duration})
+                                </td>
+                              </tr>
+                              <tr>
+                                <td className="col-key italic" style={{ width: '150px', backgroundColor: theme.header + '80', color: theme.text }}>Understand</td>
+                                <td className="p-6 whitespace-pre-line text-justify leading-relaxed">{meeting.understand.steps}</td>
+                              </tr>
+                              <tr>
+                                <td className="col-key italic" style={{ backgroundColor: theme.header + '80', color: theme.text }}>Apply</td>
+                                <td className="p-6 whitespace-pre-line text-justify leading-relaxed">{meeting.apply.steps}</td>
+                              </tr>
+                              <tr>
+                                <td className="col-key italic" style={{ backgroundColor: theme.header + '80', color: theme.text }}>Reflect</td>
+                                <td className="p-6 whitespace-pre-line text-justify leading-relaxed">{meeting.reflect.steps}</td>
+                              </tr>
+
+                              <tr style={{ backgroundColor: theme.header }}>
+                                <td colSpan={2} className="text-center font-bold uppercase py-4 border-t-2" style={{ borderColor: theme.accent, color: theme.text }}>
+                                  3. KEGIATAN AKHIR ({meeting.closing.duration})
+                                </td>
+                              </tr>
+                              <tr>
+                                <td colSpan={2} className="p-6 leading-relaxed whitespace-pre-line text-justify">
+                                  {meeting.closing.steps}
+                                </td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </div>
+                      );
+                    })}
+
+                    <div className="h-6"></div>
+
+                    {/* G. ASESMEN */}
+                    <table className="table-spreadsheet">
+                      <thead>
+                        <tr className="table-header-pink">
+                          <th colSpan={4}>G. ASESMEN PEMBELAJARAN</th>
+                        </tr>
                         <tr className="bg-slate-100 font-bold">
                           <th className="text-center" style={{width: '20%'}}>Komponen</th>
-                          <th className="text-center" style={{width: '25%'}}>Teknik Penilaian</th>
-                          <th className="text-center" style={{width: '25%'}}>Instrumen Penilaian</th>
+                          <th className="text-center" style={{width: '25%'}}>Teknik</th>
+                          <th className="text-center" style={{width: '25%'}}>Instrumen</th>
                           <th className="text-center">Rubrik / Kriteria</th>
                         </tr>
                       </thead>
@@ -1182,6 +1243,27 @@ export default function App() {
                           <td>{state.generatedContent.assessments.final.instrument}</td>
                           <td className="text-justify text-sm leading-relaxed">{state.generatedContent.assessments.final.rubric}</td>
                         </tr>
+                      </tbody>
+                    </table>
+
+                    <div className="h-6"></div>
+
+                    {/* H. PENGAYAAN DAN REMEDIAL */}
+                    <table className="table-spreadsheet">
+                      <thead><tr><th colSpan={2} className="table-header-pink">H. PENGAYAAN DAN REMEDIAL</th></tr></thead>
+                      <tbody>
+                        <tr><td className="col-key">Pengayaan</td><td className="p-4 text-justify leading-relaxed whitespace-pre-line">{state.generatedContent.enrichment}</td></tr>
+                        <tr><td className="col-key">Remedial</td><td className="p-4 text-justify leading-relaxed whitespace-pre-line">{state.generatedContent.remedial}</td></tr>
+                      </tbody>
+                    </table>
+
+                    <div className="h-6"></div>
+
+                    {/* I. REFLEKSI */}
+                    <table className="table-spreadsheet">
+                      <thead><tr><th className="table-header-pink">I. REFLEKSI DIRI PESERTA DIDIK DAN PENDIDIK</th></tr></thead>
+                      <tbody>
+                        <tr><td className="p-6 text-justify leading-relaxed whitespace-pre-line">{state.generatedContent.reflection}</td></tr>
                       </tbody>
                     </table>
 

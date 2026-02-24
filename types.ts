@@ -50,21 +50,35 @@ export interface LKPDContent {
   tasks: LKPDTask[];
 }
 
+export interface StudentIdentification {
+  priorKnowledge: string;
+  interests: string;
+  learningNeeds: string;
+}
+
+export interface DimensionDetail {
+  dimension: string;
+  elements: string;
+}
+
 export interface GeneratedRPMContent {
-  students: string;
+  studentIdentification: StudentIdentification;
   interdisciplinary: string;
   partnership: string;
   environment: string;
   digitalTools: string;
   summary: string;
   pedagogy: string;
-  dimensions: string;
+  dimensionDetails: DimensionDetail[];
   meetings: LearningStep[];
   assessments: {
     initial: AssessmentDetail;
     process: AssessmentDetail;
     final: AssessmentDetail;
   };
+  enrichment: string;
+  remedial: string;
+  reflection: string;
   lkpd: string;
   formativeQuestions: FormativeQuestion[];
 }

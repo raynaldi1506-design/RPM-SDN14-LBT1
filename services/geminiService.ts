@@ -456,9 +456,17 @@ export const generateRPMContent = async (formData: RPMFormData): Promise<Generat
     - Materi Pokok: ${formData.material}
     - TP: ${formData.tp}
     - Praktik Pedagogis: ${formData.pedagogy.join(", ")}
+    - Dimensi Profil Pelajar Pancasila: ${formData.dimensions.join(", ")}
     - Jumlah Pertemuan: ${formData.meetingCount}
     
     WAJIB:
+    - "studentIdentification": Berikan rincian identifikasi murid dalam 3 kategori:
+        1. Pengetahuan Awal (Prior Knowledge)
+        2. Minat Belajar (Learning Interests)
+        3. Kebutuhan Belajar (Learning Needs)
+    - "dimensionDetails": Untuk setiap Dimensi Profil Pelajar Pancasila yang dipilih, tentukan "Elemen yang Dikembangkan" secara spesifik dan relevan dengan materi.
+    - "interdisciplinary": Jelaskan keterkaitan materi ini dengan disiplin ilmu lain secara mendalam.
+    - "digitalTools": Jelaskan pemanfaatan teknologi digital dalam pembelajaran ini secara spesifik.
     - Hasilkan tepat ${formData.meetingCount} objek dalam array "meetings".
     - "summary": Buatkan **Ringkasan Materi Ajar** yang SANGAT MENDETAIL, LENGKAP, dan MENARIK untuk siswa SD (setara Buku Teks Paket). 
        * Minimal 300-500 kata. 
@@ -469,6 +477,9 @@ export const generateRPMContent = async (formData: RPMFormData): Promise<Generat
     - Setiap pertemuan harus memiliki langkah-langkah yang berbeda dan progresif.
     - Format langkah-langkah dalam "steps" HARUS dalam bentuk daftar bernomor susun ke bawah.
     - Bagian assessments (initial, process, final) HARUS rinci (Teknik, Instrumen, Rubrik).
+    - "enrichment": Berikan rincian kegiatan pengayaan untuk siswa yang sudah tuntas.
+    - "remedial": Berikan rincian kegiatan remedial untuk siswa yang belum tuntas.
+    - "reflection": Berikan rincian refleksi untuk peserta didik dan pendidik.
     - Bagian "FORMATIVEQUESTIONS" harus berisi 20 soal HOTS pilihan ganda unik.
     
     Output JSON.
@@ -482,14 +493,32 @@ export const generateRPMContent = async (formData: RPMFormData): Promise<Generat
       responseSchema: {
         type: Type.OBJECT,
         properties: {
-          students: { type: Type.STRING },
+          studentIdentification: {
+            type: Type.OBJECT,
+            properties: {
+              priorKnowledge: { type: Type.STRING },
+              interests: { type: Type.STRING },
+              learningNeeds: { type: Type.STRING }
+            },
+            required: ["priorKnowledge", "interests", "learningNeeds"]
+          },
           interdisciplinary: { type: Type.STRING },
           partnership: { type: Type.STRING },
           environment: { type: Type.STRING },
           digitalTools: { type: Type.STRING },
           summary: { type: Type.STRING },
           pedagogy: { type: Type.STRING },
-          dimensions: { type: Type.STRING },
+          dimensionDetails: {
+            type: Type.ARRAY,
+            items: {
+              type: Type.OBJECT,
+              properties: {
+                dimension: { type: Type.STRING },
+                elements: { type: Type.STRING }
+              },
+              required: ["dimension", "elements"]
+            }
+          },
           meetings: {
             type: Type.ARRAY,
             items: {
@@ -545,6 +574,9 @@ export const generateRPMContent = async (formData: RPMFormData): Promise<Generat
             },
             required: ["initial", "process", "final"]
           },
+          enrichment: { type: Type.STRING },
+          remedial: { type: Type.STRING },
+          reflection: { type: Type.STRING },
           lkpd: { type: Type.STRING },
           formativeQuestions: {
             type: Type.ARRAY,
@@ -563,7 +595,7 @@ export const generateRPMContent = async (formData: RPMFormData): Promise<Generat
             }
           }
         },
-        required: ["students", "interdisciplinary", "partnership", "environment", "digitalTools", "summary", "pedagogy", "dimensions", "meetings", "assessments", "lkpd", "formativeQuestions"]
+        required: ["studentIdentification", "interdisciplinary", "partnership", "environment", "digitalTools", "summary", "pedagogy", "dimensionDetails", "meetings", "assessments", "enrichment", "remedial", "reflection", "lkpd", "formativeQuestions"]
       }
     }
   });
