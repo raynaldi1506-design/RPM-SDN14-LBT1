@@ -1028,6 +1028,7 @@ export default function App() {
                 <div className="flex gap-4">
                   <button onClick={handleSaveToLibrary} className="bg-white/10 text-white px-6 py-4 rounded-2xl font-black text-sm shadow-xl flex items-center gap-2 hover:bg-white/20 transition-colors border border-white/20"><Save size={18} /> SIMPAN</button>
                   <button onClick={() => window.print()} className="bg-indigo-600 text-white px-6 py-4 rounded-2xl font-black text-sm shadow-xl flex items-center gap-2 hover:bg-indigo-500"><Eye size={18} /> PREVIEW</button>
+                  <button onClick={() => downloadDocument('rpm-page-container', 'RPM_' + state.formData.material, 'pdf')} className="bg-rose-600 text-white px-6 py-4 rounded-2xl font-black text-sm shadow-xl flex items-center gap-2 hover:bg-rose-500"><FileDown size={18} /> PDF</button>
                   <button onClick={() => downloadDocument('rpm-page-container', 'RPM_' + state.formData.material, 'word')} className="bg-blue-600 text-white px-6 py-4 rounded-2xl font-black text-sm shadow-xl flex items-center gap-2 hover:bg-blue-500"><Download size={18} /> WORD</button>
                 </div>
               </div>
